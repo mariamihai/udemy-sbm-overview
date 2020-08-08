@@ -52,22 +52,25 @@ Active profiles: -
 
 - Beer Service
 
-Active profiles: localmysql, local-discovery
+Active profiles: local, local-discovery
 
 
 - Beer Order Service
 
-Active profiles: localmysql, local-discovery
+Active profiles: local, local-discovery
 
 
 - Beer Inventory Service
 
-Active profiles: localmysql, local-discovery
+Active profiles: local, local-discovery
 
 
 - Beer Inventory Failover Service
 
 Active profiles: local-discovery
+
+
+(The "localmysql" profile was used for the local MySQL connection when starting to develop the services and breaking the monolith, the "local" profile is obtained from the Config Service and used currently.)
 
 ##### 1.4.3. Default port mapping - for single host
 
