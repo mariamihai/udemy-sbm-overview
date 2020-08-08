@@ -49,6 +49,8 @@ Active profiles: local-discovery
 
 Active profiles: -
 
+Repository used: [Git repo](https://github.com/mariamihai/udemy-sbm-brewery-config-repo) 
+
 
 - Beer Service
 
