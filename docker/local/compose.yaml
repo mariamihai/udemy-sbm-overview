@@ -1,0 +1,155 @@
+version: '3.8'
+services:
+
+  # The dbs are not safe, should remove the exposed ports
+  beer_db:
+    image: mysql:8
+    ports:
+      - 33061:3306
+    volumes:
+      - ./mysql/beer/data:/var/lib/mysql:rw
+      - ./mysql/beer:/docker-entrypoint-initdb.d
+    environment:
+      MYSQL_ROOT_PASSWORD: root_pass
+
+  inventory_db:
+    image: mysql:8
+    ports:
+      - 33062:3306
+    volumes:
+      - ./mysql/inventory/data:/var/lib/mysql:rw
+      - ./mysql/inventory:/docker-entrypoint-initdb.d
+    environment:
+      MYSQL_ROOT_PASSWORD: root_pass
+
+  order_db:
+    image: mysql:8
+    ports:
+      - 33063:3306
+    volumes:
+      - ./mysql/order/data:/var/lib/mysql:rw
+      - ./mysql/order:/docker-entrypoint-initdb.d
+    environment:
+      MYSQL_ROOT_PASSWORD: root_pass
+
+  jms:
+    image: vromero/activemq-artemis
+    ports:
+      - 8161:8161
+      - 61616:61616
+
+  zipkin:
+    image: openzipkin/zipkin
+    ports:
+      - 9411:9411
+
+  eureka:
+    image: mariamihai/sbm-brewery-eureka:latest
+    ports:
+      - 8761:8761
+    environment:
+      SERVER_PORT: "8761"
+#    restart: on-failure
+
+  config:
+    image: mariamihai/sbm-config-server:latest
+    ports:
+      - 8888:8888
+    depends_on:
+      - eureka
+    environment:
+      SERVER_PORT: "8888"
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://netflix:eureka@eureka:8761/eureka
+      EUREKA_INSTANCE_PREFER_IP_ADDRESS: 'true'
+#    restart: on-failure
+
+  inventory-failover:
+    image: mariamihai/sbm-beer-inventory-failover:latest
+    ports:
+      - 8083:8083
+    depends_on:
+      - eureka
+    environment:
+      SERVER_PORT: "8083"
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://netflix:eureka@eureka:8761/eureka/
+      EUREKA_INSTANCE_PREFER_IP_ADDRESS: 'true'
+#    restart: on-failure
+
+  inventory-service:
+    image: mariamihai/sbm-beer-inventory-service:latest
+    ports:
+      - 8082:8082
+    depends_on:
+      - eureka
+      - config
+      - jms
+      - inventory_db
+    environment:
+      SERVER_PORT: "8082"
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://netflix:eureka@eureka:8761/eureka
+      EUREKA_INSTANCE_PREFER_IP_ADDRESS: 'true'
+      SPRING_PROFILES_ACTIVE: "localmysql, local-discovery"
+      SPRING_ZIPKIN_BASEURL: http://zipkin
+      SPRING_ARTEMIS_HOST: jms
+      SPRING_DATASOURCE_URL: jdbc:mysql://inventory_db:3306/beerinventoryservice?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
+#    restart: on-failure
+
+  beer-service:
+    image: mariamihai/sbm-beer-service:latest
+    ports:
+      - 8080:8080
+    depends_on:
+      - eureka
+      - config
+      - jms
+      - beer_db
+      - inventory-service
+    environment:
+      SERVER_PORT: "8080"
+      INVENTORY_SERVICE_HOST: http://inventory-service:8082
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://netflix:eureka@eureka:8761/eureka
+      EUREKA_INSTANCE_PREFER_IP_ADDRESS: 'true'
+      SPRING_PROFILES_ACTIVE: "localmysql, local-discovery"
+      SPRING_ZIPKIN_BASEURL: http://zipkin
+      SPRING_ARTEMIS_HOST: jms
+      SPRING_DATASOURCE_URL: jdbc:mysql://beer_db:3306/beerservice?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
+#    restart: on-failure
+
+  order-service:
+    image: mariamihai/sbm-beer-order-service:latest
+    ports:
+      - 8081:8081
+    depends_on:
+      - eureka
+      - config
+      - jms
+      - order_db
+      - beer-service
+    environment:
+      SERVER_PORT: "8081"
+      BEER_SERVICE_HOST: http://beer-service:8080
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://netflix:eureka@eureka:8761/eureka
+      EUREKA_INSTANCE_PREFER_IP_ADDRESS: 'true'
+      SPRING_PROFILES_ACTIVE: "localmysql, local-discovery"
+      SPRING_ZIPKIN_BASEURL: http://zipkin
+      SPRING_ARTEMIS_HOST: jms
+      SPRING_DATASOURCE_URL: jdbc:mysql://order_db:3306/beerorderservice?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
+#    restart: on-failure
+
+  gateway:
+    image: mariamihai/sbm-brewery-gateway
+    ports:
+      - 9090:9090
+    depends_on:
+      - eureka
+      - config
+      - inventory-failover
+      - inventory-service
+      - beer-service
+      - order-service
+    environment:
+      SERVER_PORT: "9090"
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://netflix:eureka@eureka:8761/eureka
+      EUREKA_INSTANCE_PREFER_IP_ADDRESS: 'true'
+      SPRING_PROFILES_ACTIVE: "local-discovery"
+#    restart: on-failure
