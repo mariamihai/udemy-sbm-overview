@@ -1,88 +1,117 @@
 # Spring Boot Microservices with Spring Cloud
-Overview of the entire course and all projects from "Spring Boot Microservices with Spring Cloud" [Udemy course](https://www.udemy.com/course/spring-boot-microservices-with-spring-cloud-beginner-to-guru/). 
+Overview of the entire course and all the projects from "Spring Boot Microservices with Spring Cloud" [Udemy course](https://www.udemy.com/course/spring-boot-microservices-with-spring-cloud-beginner-to-guru/). 
 
+![Certification](images/Certification.jpg)
 
-<img
-src=“https://github.com/mariamihai/udemy-sbm-overview/blob/master/Certification.jpg”
-raw=true
-alt=“Certification”
-style=“margin-right: 10px;”
-/>
+  - [Main project](#main-project)
+    - [Description](#description)
+    - [The monolith](#the-monolith)
+    - [The microservices](#the-microservices)
+      - [Developed microservices](#developed-microservices)
+      - [Additional applications needed](#additional-applications-needed)
+        - [MySQL](#mysql)
+        - [JMS with ActiveMQ Artemis](#jms-with-activemq-artemis)
+        - [Distributed Tracing with Spring Cloud Sleuth and Zipkin](#distributed-tracing-with-spring-cloud-sleuth-and-zipkin)
+        - [ELK Stack overview](#elk-stack-overview)
+      - [Default port mapping - for single host](#default-port-mapping---for-single-host)
+      - [Docker images](#docker-images)
+  - [Additional projects constructed in this course](#additional-projects-constructed-in-this-course)
+    - [Initial Brewery projects](#initial-brewery-projects)
+    - [Spring REST Docs example project](#spring-rest-docs-example-project)
+    - [Jackson project](#jackson-project)
+    - [Brewery BOM](#brewery-bom)
+    - [JMS messaging project](#jms-messaging-project)
+    - [Spring Statemachine project](#spring-statemachine-project)
 
+## Main project
+### Description
+The main project revolves around a three service environment - a beer creation project, an inventory one and an order 
+creation, validation and allocation project.
 
-## 1. Main project
-### 1.1. Description
+These three and all the other projects are described in their respective README files. Current project is only an overview 
+of the development done during this course.
 
-### 1.2. The monolith
+### The monolith
+The course trainer added an initial project, the monolith from which the services are constructed from, but I decided to 
+implement it myself. The code is found [here](https://github.com/mariamihai/udemy-sbm-brewery-monolith), uses CircleCI for CI 
+and Sonar Cloud for code quality.
 
-### 1.3. The microservices
-#### 1.4. Local environment
-##### 1.4.1. Additional Docker containers needed
-- MySQL
+### The microservices
+#### Developed microservices
+Overview of all the developed microservices taken from the course:
+![Overview of developed microservices](images/Overview.png)
 
-I am using a Docker container for the MySQL databases. Check the Docker Hub [MySQL page](https://hub.docker.com/_/mysql).
+The services: <br/>
+[Eureka Service](https://github.com/mariamihai/udemy-sbm-brewery-eureka) <br/>
+[Config Service](https://github.com/mariamihai/udemy-sbm-config-server) (repository used: [Git repo](https://github.com/mariamihai/udemy-sbm-brewery-config-repo)) <br/>
+[Gateway Service](https://github.com/mariamihai/udemy-sbm-brewery-gateway) <br/>
+[SBM Beer Service](https://github.com/mariamihai/udemy-sbm-beer-service) <br/>
+[SBM  Beer Order Service](https://github.com/mariamihai/udemy-sbm-beer-order-service) <br/>
+[SBM Beer Inventory Service](https://github.com/mariamihai/udemy-sbm-beer-inventory-service) <br/>
+[SBM Beer Inventory Failover Service](https://github.com/mariamihai/udemy-sbm-beer-inventory-failover) <br/>
+
+#### Additional applications needed
+For the needed applications I've used Docker containers.
+
+##### MySQL
+The [Beer Service](https://github.com/mariamihai/udemy-sbm-beer-service), [Beer Inventory Service](https://github.com/mariamihai/udemy-sbm-beer-inventory-service) 
+and [Beer Order Service](https://github.com/mariamihai/udemy-sbm-beer-order-service) each need a database connection.
+
+When running locally, I am using a Docker container for the MySQL databases. Check the Docker Hub [MySQL page](https://hub.docker.com/_/mysql).
 
 Creating the container:
 ```
 docker run -p 3306:3306 --name beer-mysql -e MYSQL_ROOT_PASSWORD=root_pass -d mysql:8
 ```
-Stopping and restarting the container:
-```
-docker stop beer-mysql
-docker start beer-mysql
-```
 
-- JMS with ActiveMQ Artemis
-Check the Docker project [here](https://github.com/vromero/activemq-artemis-docker/blob/master/README.md).
+The initial scripts for each database needed by the services are under `src/main/scripts/mysql-init.sql` file, on each 
+individual repo.
+
+##### JMS with ActiveMQ Artemis
+The communication between the three main projects is done via JMS. Check the Docker project [here](https://github.com/vromero/activemq-artemis-docker/blob/master/README.md).
+
+Creating the container:
 ```
 docker run -it --rm -p 8161:8161 -p 61616:61616 vromero/activemq-artemis
 ```
 
-- Zipkin
+The existing queues are:
+- `brewing-request` - send a brew request from Beer Service to make more inventory
+- `new-inventory` - Beer Service sends update with the newly brewed beers to the Beer Inventory Service
+- `validate-order` - Beer Service receives request for validating an order from the Beer Order Service
+- `validate-order-result` - Beer Service sends the validation result back to the Beer Order Service
+- `allocate-order` - Beer Inventory Service validates the allocation of an order received from the Beer Order Service
+- `allocate-order-response` - Beer Inventory Service sends the result of the allocation to the Beer Order Service
+- `allocate-order-failed` - not implemented - Beer Order Service receives an exceptional case for the failed allocation (database issue, etc.)
+- `de-allocate-order` - Beer Inventory Service receives a deallocation request from the Beer Order Service if the order was invalidated
+
+| Property | Value | 
+| --------| -----|
+| username | artemis |
+| password | simetraehcapa | 
+
+##### Distributed Tracing with Spring Cloud Sleuth and Zipkin
+I am using Spring Cloud Sleuth to inject tracing information into the service calls and Zipkin to see the transactions 
+as they are moving between services. Check the Docker Hub [Zipkin page](https://hub.docker.com/r/openzipkin/zipkin).
+
+For the purpose of this course, a database (namely Cassandra) was not added.
+
+Creating the Zipkin container:
 ```
 docker run --name zipkin -p 9411:9411 openzipkin/zipkin
 ```
-##### 1.4.2. Developed microservices
-- Eureka Service
 
-Active profiles: -
+##### ELK Stack overview
+Filebeat, Elasticsearch and Kibana projects were added for centralized logging.
+![ELK Overview](images/ELK%20Stack.png)
 
+The logback file for each project is defined under `src/resources/logback-spring.xml`. The projects for which the logs 
+are currently collected are only the Beer Service, Beer Inventory Service and Beer Order Service.
 
-- Gateway Service
+The docker compose .yaml file defining the containers needed for centralized logging is defined in the current project, 
+under `/docker/local-logging/compose-logging.yaml`.
 
-Active profiles: local-discovery
-
-
-- Config Service
-
-Active profiles: -
-
-Repository used: [Git repo](https://github.com/mariamihai/udemy-sbm-brewery-config-repo) 
-
-
-- Beer Service
-
-Active profiles: local, local-discovery
-
-
-- Beer Order Service
-
-Active profiles: local, local-discovery
-
-
-- Beer Inventory Service
-
-Active profiles: local, local-discovery
-
-
-- Beer Inventory Failover Service
-
-Active profiles: local-discovery
-
-
-(The "localmysql" profile was used for the local MySQL connection when starting to develop the services and breaking the monolith, the "local" profile is obtained from the Config Service and used currently.)
-
-##### 1.4.3. Default port mapping - for single host
+#### Default port mapping - for single host
 
 | Service Name | Port | 
 | --------| -----|
@@ -94,6 +123,40 @@ Active profiles: local-discovery
 | [SBM Beer Inventory Service](https://github.com/mariamihai/udemy-sbm-beer-inventory-service) | 8082 |
 | [SBM Beer Inventory Failover Service](https://github.com/mariamihai/udemy-sbm-beer-inventory-failover) | 8083 |
 
-#### 1.5. Docker based environment
+#### Docker images
+Links for the Docker images of each project are set in the READMEs of each project.
 
-## 2. Additional projects
+Automatic building was not implemented for this project. The `latest` tag contains the best implementation considered 
+appropriate to be used.
+
+For automatic building of Docker images check the next projects:
+- for [CircleCI](https://github.com/mariamihai/CIToDockerExampleProject)
+- for [TravisCI](https://github.com/mariamihai/sma-overview) (all projects implemented under the "Spring Microservices in Action" book)
+
+The current project contains docker compose .yaml files for running all the microservices and additional projects needed.
+The initial file is under `/docker/local/compose.yaml` and an additional one including centralized logging was added under 
+`/docker/local-logging/compose-logging.yaml`.
+
+
+## Additional projects constructed in this course
+### Initial Brewery projects
+Two projects were developed initially - a [Brewery](https://github.com/mariamihai/udemy-sbm-brewery) and a [Brewery Client](https://github.com/mariamihai/udemy-sbm-brewery-client).
+They deal mostly with understanding the domain, MVC, Lombok, MapStruct, API versioning, bean validation, error handling, RestTemplate, etc.
+
+### Spring REST Docs example project
+Using REST Docs for documenting a Spring Boot project. Code [here](https://github.com/mariamihai/udemy-sbm-restdocs).
+
+### Jackson project
+Processing JSON with Spring Boot project. Code [here](https://github.com/mariamihai/udemy-sbm-jackson).
+
+### Brewery BOM
+Initially developed BOM for the microservices. Link to project [here](https://github.com/mariamihai/udemy-sbm-brewery-bom).
+
+Currently using the course creator [BOM project](https://github.com/sfg-beer-works/sfg-brewery-bom).
+
+
+### JMS messaging project
+An initial project about JMS messaging which was expanded by using it with the microservices. Code [here](https://github.com/mariamihai/udemy-sbm-jms).
+
+### Spring Statemachine project
+An initial project to familiarize with Spring Statemachine was developed [here](https://github.com/mariamihai/udemy-sbm-ssm).
