@@ -2,6 +2,14 @@
 Overview of the entire course and all projects from "Spring Boot Microservices with Spring Cloud" [Udemy course](https://www.udemy.com/course/spring-boot-microservices-with-spring-cloud-beginner-to-guru/). 
 
 
+<img
+src=“https://github.com/mariamihai/udemy-sbm-overview/blob/master/Certification.jpg”
+raw=true
+alt=“Certification”
+style=“margin-right: 10px;”
+/>
+
+
 ## 1. Main project
 ### 1.1. Description
 
