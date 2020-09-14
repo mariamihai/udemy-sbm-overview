@@ -116,8 +116,8 @@ under `/docker/local-logging/compose-logging.yaml`.
 | Service Name | Port | 
 | --------| -----|
 | [Eureka Service](https://github.com/mariamihai/udemy-sbm-brewery-eureka) | 8761 |
-| [Gateway Service](https://github.com/mariamihai/udemy-sbm-brewery-gateway) | 9090 |
 | [Config Service](https://github.com/mariamihai/udemy-sbm-config-server) | 8888 |
+| [Gateway Service](https://github.com/mariamihai/udemy-sbm-brewery-gateway) | 9090 |
 | [SBM Beer Service](https://github.com/mariamihai/udemy-sbm-beer-service) | 8080 |
 | [SBM  Beer Order Service](https://github.com/mariamihai/udemy-sbm-beer-order-service) | 8081 |
 | [SBM Beer Inventory Service](https://github.com/mariamihai/udemy-sbm-beer-inventory-service) | 8082 |
@@ -137,7 +137,6 @@ The current project contains docker compose .yaml files for running all the micr
 The initial file is under `/docker/local/compose.yaml` and an additional one including centralized logging was added under 
 `/docker/local-logging/compose-logging.yaml`.
 
-
 ## Additional projects constructed in this course
 ### Initial Brewery projects
 Two projects were developed initially - a [Brewery](https://github.com/mariamihai/udemy-sbm-brewery) and a [Brewery Client](https://github.com/mariamihai/udemy-sbm-brewery-client).
@@ -153,7 +152,6 @@ Processing JSON with Spring Boot project. Code [here](https://github.com/mariami
 Initially developed BOM for the microservices. Link to project [here](https://github.com/mariamihai/udemy-sbm-brewery-bom).
 
 Currently using the course creator [BOM project](https://github.com/sfg-beer-works/sfg-brewery-bom).
-
 
 ### JMS messaging project
 An initial project about JMS messaging which was expanded by using it with the microservices. Code [here](https://github.com/mariamihai/udemy-sbm-jms).
