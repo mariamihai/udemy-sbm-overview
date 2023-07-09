@@ -1,5 +1,3 @@
-[![Docker](https://img.shields.io/docker/v/mariamihai/sbm-beer-inventory-failover?sort=date)](https://hub.docker.com/repository/docker/mariamihai/sbm-beer-inventory-failover)
-
 # SBM Beer Inventory Failover Service
 Spring Boot Microservice project.
 
@@ -18,7 +16,7 @@ The current project is part of the "Spring Boot Microservices with Spring Cloud"
 It is a failover project for the [Beer Inventory Service](https://github.com/mariamihai/udemy-sbm-beer-inventory-service).
 If the Beer  Inventory Service is down, the current project returns a "default" BeerInventoryDto object with beerId equal to `00000000-0000-0000-0000-00000000000` and quantityOnHand set to `999`.
 
-An overview of all the projects involved can be found [here](https://github.com/mariamihai/udemy-sbm-overview).
+An overview of all the projects involved can be found [here](../../..).
 
 ## API version
 Version was not added to the current project as the project contains only one endpoint with no parameters. No changes 

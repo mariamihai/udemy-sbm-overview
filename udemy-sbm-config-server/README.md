@@ -1,5 +1,3 @@
-[![Docker](https://img.shields.io/docker/v/mariamihai/sbm-config-server?sort=date)](https://hub.docker.com/r/mariamihai/sbm-config-server)
-
 # SBM Cloud Config Service
 Spring Boot Microservice project.
 
@@ -21,7 +19,7 @@ The project provides externalized configuration for the principal services: [Bee
 [Beer Order Service](https://github.com/mariamihai/udemy-sbm-beer-order-service) and [Beer Inventory Service](https://github.com/mariamihai/udemy-sbm-beer-inventory-service).
 It uses a [Git repository](https://github.com/mariamihai/udemy-sbm-brewery-config-repo) for the properties files.
 
-An overview of all the projects involved can be found [here](https://github.com/mariamihai/udemy-sbm-overview).
+An overview of all the projects involved can be found [here](../../..).
 
 ## Docker images
 Automatic building was not implemented for this project. The `latest` tag contains the best implementation considered 

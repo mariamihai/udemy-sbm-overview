@@ -33,7 +33,7 @@ of the development done during this course.
 
 ### The monolith
 The course trainer added an initial project, the monolith from which the services are constructed from, but I decided to 
-implement it myself. The code is found [here](https://github.com/mariamihai/udemy-sbm-brewery-monolith), uses CircleCI for CI 
+implement it myself. The code is found [here](./udemy-sbm-brewery-monolith), uses CircleCI for CI 
 and Sonar Cloud for code quality.
 
 ### The microservices
@@ -42,20 +42,20 @@ Overview of all the developed microservices taken from the course:
 ![Overview of developed microservices](images/Overview.png)
 
 The services: <br/>
-[Eureka Service](https://github.com/mariamihai/udemy-sbm-brewery-eureka) <br/>
-[Config Service](https://github.com/mariamihai/udemy-sbm-config-server) (repository used: [Git repo](https://github.com/mariamihai/udemy-sbm-brewery-config-repo)) <br/>
-[Gateway Service](https://github.com/mariamihai/udemy-sbm-brewery-gateway) <br/>
-[SBM Beer Service](https://github.com/mariamihai/udemy-sbm-beer-service) <br/>
-[SBM  Beer Order Service](https://github.com/mariamihai/udemy-sbm-beer-order-service) <br/>
-[SBM Beer Inventory Service](https://github.com/mariamihai/udemy-sbm-beer-inventory-service) <br/>
-[SBM Beer Inventory Failover Service](https://github.com/mariamihai/udemy-sbm-beer-inventory-failover) <br/>
+[Eureka Service](./udemy-sbm-brewery-eureka) <br/>
+[Config Service](./udemy-sbm-config-server) (repository used: [Git repo](./udemy-sbm-brewery-config-repo)) <br/>
+[Gateway Service](./udemy-sbm-brewery-gateway) <br/>
+[SBM Beer Service](./udemy-sbm-beer-service) <br/>
+[SBM  Beer Order Service](./udemy-sbm-beer-order-service) <br/>
+[SBM Beer Inventory Service](./udemy-sbm-beer-inventory-service) <br/>
+[SBM Beer Inventory Failover Service](./udemy-sbm-beer-inventory-failover) <br/>
 
 #### Additional applications needed
 For the needed applications I've used Docker containers.
 
 ##### MySQL
-The [Beer Service](https://github.com/mariamihai/udemy-sbm-beer-service), [Beer Inventory Service](https://github.com/mariamihai/udemy-sbm-beer-inventory-service) 
-and [Beer Order Service](https://github.com/mariamihai/udemy-sbm-beer-order-service) each need a database connection.
+The [Beer Service](./udemy-sbm-beer-service), [Beer Inventory Service](./udemy-sbm-beer-inventory-service) 
+and [Beer Order Service](./udemy-sbm-beer-order-service) each need a database connection.
 
 When running locally, I am using a Docker container for the MySQL databases. Check the Docker Hub [MySQL page](https://hub.docker.com/_/mysql).
 
@@ -113,15 +113,15 @@ under `/docker/local-logging/compose-logging.yaml`.
 
 #### Default port mapping - for single host
 
-| Service Name | Port | 
-| --------| -----|
-| [Eureka Service](https://github.com/mariamihai/udemy-sbm-brewery-eureka) | 8761 |
-| [Config Service](https://github.com/mariamihai/udemy-sbm-config-server) | 8888 |
-| [Gateway Service](https://github.com/mariamihai/udemy-sbm-brewery-gateway) | 9090 |
-| [SBM Beer Service](https://github.com/mariamihai/udemy-sbm-beer-service) | 8080 |
-| [SBM  Beer Order Service](https://github.com/mariamihai/udemy-sbm-beer-order-service) | 8081 |
-| [SBM Beer Inventory Service](https://github.com/mariamihai/udemy-sbm-beer-inventory-service) | 8082 |
-| [SBM Beer Inventory Failover Service](https://github.com/mariamihai/udemy-sbm-beer-inventory-failover) | 8083 |
+| Service Name                                                               | Port | 
+|----------------------------------------------------------------------------| -----|
+| [Eureka Service](./udemy-sbm-brewery-eureka)                               | 8761 |
+| [Config Service](./udemy-sbm-config-server)                                | 8888 |
+| [Gateway Service](./udemy-sbm-brewery-gateway)                             | 9090 |
+| [SBM Beer Service](./udemy-sbm-beer-service)                               | 8080 |
+| [SBM  Beer Order Service](./udemy-sbm-beer-order-service)                  | 8081 |
+| [SBM Beer Inventory Service](./udemy-sbm-beer-inventory-service)           | 8082 |
+| [SBM Beer Inventory Failover Service](./udemy-sbm-beer-inventory-failover) | 8083 |
 
 #### Docker images
 Links for the Docker images of each project are set in the READMEs of each project.
@@ -139,22 +139,22 @@ The initial file is under `/docker/local/compose.yaml` and an additional one inc
 
 ## Additional projects constructed in this course
 ### Initial Brewery projects
-Two projects were developed initially - a [Brewery](https://github.com/mariamihai/udemy-sbm-brewery) and a [Brewery Client](https://github.com/mariamihai/udemy-sbm-brewery-client).
+Two projects were developed initially - a [Brewery](./udemy-sbm-brewery) and a [Brewery Client](./udemy-sbm-brewery-client).
 They deal mostly with understanding the domain, MVC, Lombok, MapStruct, API versioning, bean validation, error handling, RestTemplate, etc.
 
 ### Spring REST Docs example project
-Using REST Docs for documenting a Spring Boot project. Code [here](https://github.com/mariamihai/udemy-sbm-restdocs).
+Using REST Docs for documenting a Spring Boot project. Code [here](./udemy-sbm-restdocs).
 
 ### Jackson project
-Processing JSON with Spring Boot project. Code [here](https://github.com/mariamihai/udemy-sbm-jackson).
+Processing JSON with Spring Boot project. Code [here](./udemy-sbm-jackson).
 
 ### Brewery BOM
-Initially developed BOM for the microservices. Link to project [here](https://github.com/mariamihai/udemy-sbm-brewery-bom).
+Initially developed BOM for the microservices. Link to project [here](./udemy-sbm-brewery-bom).
 
 Currently using the course creator [BOM project](https://github.com/sfg-beer-works/sfg-brewery-bom).
 
 ### JMS messaging project
-An initial project about JMS messaging which was expanded by using it with the microservices. Code [here](https://github.com/mariamihai/udemy-sbm-jms).
+An initial project about JMS messaging which was expanded by using it with the microservices. Code [here](./udemy-sbm-jms).
 
 ### Spring Statemachine project
-An initial project to familiarize with Spring Statemachine was developed [here](https://github.com/mariamihai/udemy-sbm-ssm).
+An initial project to familiarize with Spring Statemachine was developed [here](./udemy-sbm-ssm).

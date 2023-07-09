@@ -1,5 +1,3 @@
-[![Docker](https://img.shields.io/docker/v/mariamihai/sbm-brewery-gateway?sort=date)](https://hub.docker.com/r/mariamihai/sbm-brewery-gateway)
-
 # SFG Brewery Gateway Service
 Spring Boot Microservice project.
 
@@ -16,7 +14,7 @@ The project represents the gateway service for the [Beer Service](https://github
 [Beer Order Service](https://github.com/mariamihai/udemy-sbm-beer-order-service) and [Beer Inventory Service](https://github.com/mariamihai/udemy-sbm-beer-inventory-service)
 projects.
 
-An overview of all the projects involved can be found [here](https://github.com/mariamihai/udemy-sbm-overview).
+An overview of all the projects involved can be found [here](../../..).
 
 ## Docker images
 Automatic building was not implemented for this project. The `latest` tag contains the best implementation considered 

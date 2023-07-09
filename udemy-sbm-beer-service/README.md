@@ -1,6 +1,3 @@
-[![CircleCI](https://circleci.com/gh/mariamihai/udemy-sbm-beer-service.svg?style=svg)](https://circleci.com/gh/mariamihai/udemy-sbm-beer-service)
-[![Docker](https://img.shields.io/docker/v/mariamihai/sbm-beer-service?sort=date)](https://hub.docker.com/r/mariamihai/sbm-beer-service)
-
 # SBM Beer Service
 Spring Boot Microservice project.
 
@@ -30,7 +27,7 @@ didn't eliminate all the existing inventory for a particular beer and brews more
 [Beer Inventory Service](https://github.com/mariamihai/udemy-sbm-beer-inventory-service) if needed.
 Different types of beer can be added and verified.
 
-An overview of all the projects involved can be found [here](https://github.com/mariamihai/udemy-sbm-overview).
+An overview of all the projects involved can be found [here](../../..).
 
 ## API version
 _V1_ is the current implementation. No changes to the project are expected to be made in the future that will affect 

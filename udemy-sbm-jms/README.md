@@ -4,7 +4,7 @@ The current project is part of the "Spring Boot Microservices with Spring Cloud"
 
 This is an initial project about JMS Messaging that will be expanded for the microservices that are constructed in the course.
 
-An overview of all the projects involved can be found [here](https://github.com/mariamihai/udemy-sbm-overview).
+An overview of all the projects involved can be found [here](../../..).
 
 ## Docker image
 For the project, I am using an ActiveMQ Artemis image. 

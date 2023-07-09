@@ -1,5 +1,3 @@
-[![Docker](https://img.shields.io/docker/v/mariamihai/sbm-brewery-eureka?sort=date)](https://hub.docker.com/r/mariamihai/sbm-brewery-eureka)
-
 # SFG Brewery Eureka Service
 Spring Boot Microservice project.
 
@@ -15,7 +13,7 @@ The current project is part of the "Spring Boot Microservices with Spring Cloud"
 
 The project provides service discovery and it is used by all other applications for registration and communication between themselves.
 
-An overview of all the projects involved can be found [here](https://github.com/mariamihai/udemy-sbm-overview).
+An overview of all the projects involved can be found [here](../../..).
 
 ## Docker images
 Automatic building was not implemented for this project. The `latest` tag contains the best implementation considered 

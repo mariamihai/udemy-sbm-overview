@@ -1,6 +1,3 @@
-[![CircleCI](https://circleci.com/gh/mariamihai/udemy-sbm-beer-order-service.svg?style=svg)](https://circleci.com/gh/mariamihai/udemy-sbm-beer-order-service)
-[![Docker](https://img.shields.io/docker/v/mariamihai/sbm-beer-order-service?sort=date)](https://hub.docker.com/r/mariamihai/sbm-beer-order-service)
-
 # SBM Beer Order Service
 Spring Boot Microservice project.
 
@@ -33,7 +30,7 @@ The current project is part of the "Spring Boot Microservices with Spring Cloud"
 The project constantly places new orders, which are validated against the [Beer Service](https://github.com/mariamihai/udemy-sbm-beer-service) 
 and allocated by the [Beer Inventory Service](https://github.com/mariamihai/udemy-sbm-beer-inventory-service).
 
-An overview of all the projects involved can be found [here](https://github.com/mariamihai/udemy-sbm-overview).
+An overview of all the projects involved can be found [here](../../..).
 
 ## API version
 _V1_ is the current implementation. No changes to the project are expected to be made in the future that will affect 

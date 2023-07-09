@@ -8,4 +8,4 @@ The project is the Git repository that provides externalized configuration for t
 [Beer Order Service](https://github.com/mariamihai/udemy-sbm-beer-order-service) and [Beer Inventory Service](https://github.com/mariamihai/udemy-sbm-beer-inventory-service)
 via the [Config Service](https://github.com/mariamihai/udemy-sbm-config-server).
 
-An overview of all the projects involved can be found [here](https://github.com/mariamihai/udemy-sbm-overview).
+An overview of all the projects involved can be found [here](../../..).

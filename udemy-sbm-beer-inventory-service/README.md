@@ -1,6 +1,3 @@
-[![CircleCI](https://circleci.com/gh/mariamihai/udemy-sbm-beer-inventory-service.svg?style=svg)](https://circleci.com/gh/mariamihai/udemy-sbm-beer-inventory-service)
-[![Docker](https://img.shields.io/docker/v/mariamihai/sbm-beer-inventory-service?sort=date)](https://hub.docker.com/r/mariamihai/sbm-beer-inventory-service)
-
 # SBM Beer Inventory Service
 Spring Boot Microservice project
 
@@ -26,7 +23,7 @@ The project adds to the inventory the beers brewed by the [Beer Service](https:/
 and validates the allocation of inventory to an order created by the [Beer Order Service](https://github.com/mariamihai/udemy-sbm-beer-order-service) 
 It removes the allocated inventory and inserts back inventory from cancelled orders.
 
-An overview of all the projects involved can be found [here](https://github.com/mariamihai/udemy-sbm-overview).
+An overview of all the projects involved can be found [here](../../..).
 
 ## API version
 _V1_ is the current implementation. No changes to the project are expected to be made in the future that will affect 
