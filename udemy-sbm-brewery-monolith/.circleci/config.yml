@@ -35,8 +35,8 @@ jobs:
       # run tests!
       - run: mvn integration-test
 
-      - run: mvn sonar:sonar -Dsonar.projectKey=mariamihai_udemy-sbm-brewery-monolith
-                             -Dsonar.organization=mariamihai
+      - run: mvn sonar:sonar -Dsonar.projectKey=
+                             -Dsonar.organization=
                              -Dsonar.host.url=https://sonarcloud.io
-                             -Dsonar.login=7c328e15f84ee7f168d5e2bbef63f94be44e862c
+                             -Dsonar.login=
                              -Dsonar.coverage.exclusions=**/bootstrap/*,**/domain/*,**/repository/*,**/config/*,**/model/*,**/MonolithApplication.java,**/MvcExceptionHandler.java
